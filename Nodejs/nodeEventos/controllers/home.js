@@ -25,7 +25,13 @@ module.exports = function (app) {
             res.redirect('/')
         },
         novoUsuario : function(req, res){
-            
+            if(req.body && req.body.usuario){
+                const {nome, senha, confirma} = req.body.usuario
+                res.redirect('/menu')
+                return
+            }
+
+            res.redirect('/')
         }
     }
     return HomeController

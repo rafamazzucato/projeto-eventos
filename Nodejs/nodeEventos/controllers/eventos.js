@@ -15,6 +15,9 @@ module.exports = function (app) {
         listaEventos: function (request, response) {
             const usuario = request.session.usuario
             response.render('eventos/listaEventos', { usuario })
+        },
+        novoEvento : function(request, response) {
+            response.redirect('/menu');
         }
     }
     return EventosController

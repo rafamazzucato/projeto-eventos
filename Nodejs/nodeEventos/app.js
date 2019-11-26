@@ -26,8 +26,8 @@ load('models')
   .then('routes')
   .into(app)
 
-app.use(erros.notFound);
-app.use(erros.serverError);
+app.use(erros.notFound)
+app.use(erros.serverError)
 
 app.listen(3000, function(){
   console.log('Aplicação no ar.')
