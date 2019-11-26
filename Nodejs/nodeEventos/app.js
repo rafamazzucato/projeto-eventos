@@ -1,11 +1,29 @@
-var express = require('express')
-var path = require('path')
-var app = express()
+const express = require('express')
+const path = require('path')
+const load = require('express-load')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const expressSession = require('express-session')
 
-// view engine setup
+const app = express()
+
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
+
+app.use(cookieParser('nodeEventos'))
+app.use(expressSession({
+  secret: 'nodeEventos',
+  resave: false,
+  saveUninitialized: true
+}))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public')))
+
+load('models')
+  .then('controllers')
+  .then('routes')
+  .into(app)
 
 app.listen(3000, function(){
   console.log('Aplicação no ar.')
