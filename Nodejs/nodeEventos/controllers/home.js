@@ -23,6 +23,9 @@ module.exports = function (app) {
             }
             
             res.redirect('/')
+        },
+        novoUsuario : function(req, res){
+            
         }
     }
     return HomeController

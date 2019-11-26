@@ -4,6 +4,7 @@ const load = require('express-load')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
+const erros = require('./middlewares/erro')
 
 const app = express()
 
@@ -24,6 +25,9 @@ load('models')
   .then('controllers')
   .then('routes')
   .into(app)
+
+app.use(erros.notFound);
+app.use(erros.serverError);
 
 app.listen(3000, function(){
   console.log('Aplicação no ar.')
