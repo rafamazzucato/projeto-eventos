@@ -1,5 +1,7 @@
 module.exports = function (app) {
-    var EventosController = {
+    const EventoModel = app.models.eventos;
+
+    const EventosController = {
         menu: function (request, response) {
             const usuario = request.session.usuario
             response.render('eventos/menu', { usuario })
@@ -13,11 +15,31 @@ module.exports = function (app) {
             response.render('eventos/cadEvento', { usuario })
         },
         listaEventos: function (request, response) {
-            const usuario = request.session.usuario
-            response.render('eventos/listaEventos', { usuario })
+            EventoModel.find(function (erro, eventos) {
+                if (erro) {
+                    response.render('/menu');
+                } else {
+                    const usuario = request.session.usuario
+                    const params = { usuario, eventos };
+                    response.render('eventos/listaEventos', params);
+                }
+            });
         },
-        novoEvento : function(request, response) {
-            response.redirect('/menu');
+        novoEvento: function (request, response) {
+            const evento = request.body.evento;
+            
+            if (evento.descricao.trim().length == 0 || evento.data == 'undefined'
+                || evento.preco.trim().length == 0) {
+                    response.redirect('/cadEvento');
+            } else {
+                EventoModel.create(evento, function (erro, evento) {
+                    if (erro) {
+                        response.redirect('/cadEvento');
+                    }
+                    else {
+                        response.redirect('/menu');
+            } });
+            }
         }
     }
     return EventosController

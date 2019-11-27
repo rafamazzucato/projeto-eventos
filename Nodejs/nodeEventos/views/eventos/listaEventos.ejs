@@ -13,8 +13,32 @@
               <h4>Selecione uma opção na lista para executá-la</h4>
           </header>
           <section>
-              <!--será implementado em breve-->
-          </section>
+            <!--será implementado em breve-->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Data</th>
+                            <th>Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% eventos.forEach(function(evento, index) { %>
+                        <tr>
+                            <td>
+                                            <%= evento.descricao %>
+                                        </td>
+                            <td>
+                                            <%= evento.data %>
+                                        </td>
+                            <td>
+                                        <%= evento.preco %>
+                                    </td>
+                        </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </section>
           <footer>
               <small>Sistema de Cadastro de Eventos e Convidados</small>
           </footer>

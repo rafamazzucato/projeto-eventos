@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
 const erros = require('./middlewares/erro')
 
+require('./config/db')
+
 const app = express()
 
 app.set('views', path.join(__dirname, 'views'))
